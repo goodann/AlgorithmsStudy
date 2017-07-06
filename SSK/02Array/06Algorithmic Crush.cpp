@@ -13,7 +13,7 @@ int main() {
 	cin >> m;
 	vector<long long int> list(n);
 	long long int max = LLONG_MIN;
-
+	
 	for (int i = 0;i<m;i++) {
 		int a;
 		int b;

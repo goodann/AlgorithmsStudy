@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include<stack>
 
 using namespace std;
 
@@ -37,4 +38,6 @@ int main() {
 	int result = birthdayCakeCandles(n, ar);
 	cout << result << endl;
 	return 0;
+	//stack<int> st;
+	//st.push();
 }
