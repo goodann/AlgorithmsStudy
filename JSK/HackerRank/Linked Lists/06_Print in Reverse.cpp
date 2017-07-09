@@ -31,3 +31,21 @@ void ReversePrint(Node *head)
     }
     
 }
+
+
+//using recursion
+/*
+void ReversePrint(Node *head)
+{
+  // This is a "method-only" submission. 
+  // You only need to complete this method. 
+    Node* cursor=head;
+    
+    if ( head == NULL){
+        return;
+    }
+    
+    ReversePrint(head->next);
+    cout<<head->data<<endl;
+}
+*/
