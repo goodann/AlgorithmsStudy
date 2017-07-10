@@ -99,7 +99,10 @@ int main() {
         cin >> K;
         for(int i = 0 ; i < nodes.size() ; i++){
             depth=getDepth(root,nodes[i]->data);
-            for(int j = 1 ; j < 450 ; j++){
+            for(int j = 1 ; j < 550 ; j++){
+                if( nodes.size() < j ){
+                    break;
+                }
                 if( depth == j*K )  {        
                     node* tmp=nodes[i]->right;
                     nodes[i]->right=nodes[i]->left;
