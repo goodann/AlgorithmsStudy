@@ -99,18 +99,11 @@ int main() {
         cin >> K;
         for(int i = 0 ; i < nodes.size() ; i++){
             depth=getDepth(root,nodes[i]->data);
-            for(int j = 1 ; j < 550 ; j++){
-                if( nodes.size() < j ){
-                    break;
-                }
-                if( depth == j*K )  {        
+            if( depth%K == 0 )  {        
                     node* tmp=nodes[i]->right;
                     nodes[i]->right=nodes[i]->left;
                     nodes[i]->left=tmp;      
-                }    
-            }
-            
-            
+                }                
         }
         inOrder(root);
         cout<<endl;
