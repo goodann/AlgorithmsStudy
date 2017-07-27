@@ -8,14 +8,13 @@ using namespace std;
 
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
-    vector<int> arr, num(101);
+    vector<int> num(101);
     int N,a;
     
     cin >> N;
     
     for(int i = 0 ; i < N; i++){
         cin >> a;
-        arr.push_back(a);
         num[a+1]++;
     }
     int max=-1;
