@@ -16,7 +16,7 @@ int main(){
     vector<string> strings;
 
     int flag=1;
-    for(int i = floorL ; i <= ceilL ; i++){ //rows, columns 
+    for(int i = floorL ; i <= ceilL ; i++){ //rows, columns 구하기
         for(int j = i ; j <= ceilL; j++){
             if(!flag){
               break;
