@@ -87,12 +87,22 @@ int main() {
     while(sortedTime.size()>1 || proQueue.size()>1){
         while(sortedTime[1][0]<=nowTime && sortedTime.size()>1){
             vector<int> current=removeNode(sortedTime,0);
-            vector<int> currentTime=time[current[1]];
-            insertNode(proQueue,currentTime,1);
+            
+            vector<int> currentTime;
+            if(current.size()==2){
+                currentTime=time[current[1]];
+                insertNode(proQueue,currentTime,1);
+            }
         }
-        vector<int> current=removeNode(proQueue,1);
-        nowTime+=current[1];
-        waitTime+=nowTime-current[0];
+        if(proQueue.size()>1){
+            vector<int> current=removeNode(proQueue,1);
+            if(current.size()==2){
+                nowTime+=current[1];
+                waitTime+=nowTime-current[0];
+            }
+        }else{
+            nowTime=sortedTime[1][0];
+        }
     }
     cout<<waitTime/n<<endl;
     
