@@ -11,12 +11,6 @@ void swapNumber(vector<int>& A,int a,int b){
     A[b] = tmp;
 }
 
-void print(vector<int> A){
-    for(int i = 1; i < A.size(); i++){
-        cout<<A[i]<<" ";
-    }
-}
-
 void heapify(vector<int>& A, int i){
     int l = i * 2;
     int r = i * 2 +1;
