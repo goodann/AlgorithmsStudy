@@ -17,6 +17,24 @@ void print(vector<int> A){
     }
 }
 
+void heapify(vector<int>& A, int i){
+    int l = i * 2;
+    int r = i * 2 +1;
+    int smallest;
+    if( l < A.size() && A[l] < A[i]){
+        smallest = l;
+    }
+    else{
+        smallest = i;
+    }
+    if(r < A.size() && A[r] < A[smallest]){
+        smallest = r;
+    }
+    if( smallest != i){
+        swapNumber(A,i,smallest);
+        heapify(A,smallest);
+    }
+}
 
 void insertElement(vector<int>& A){
     int parent , child;
@@ -35,8 +53,15 @@ void insertElement(vector<int>& A){
     }
 }
 
-void deleteHeap(vector<int>& A){
-    
+void deleteElement(vector<int>& A,int num){
+    for(int i =1 ;i < A.size(); i++){
+        if( A[i] == num){
+            A[i]=A.back();
+            A.pop_back();
+            heapify(A,i);
+            break;
+        }
+    }
 }
 
 int main() {
@@ -53,16 +78,13 @@ int main() {
                 cin >> num;
                 A.push_back(num);
                 insertElement(A);
-                print(A);
-                cout<<endl;
                 break;
             case 2:     //delete  
                 cin >> num;
-                A.push_back(num);
-                deleteElement(A);
+                deleteElement(A,num);
                 break;
             case 3:     ///print minimum
-                cout << A[1];
+                cout << A[1]<<endl;
                 break;
         }
     }
