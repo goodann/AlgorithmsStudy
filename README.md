@@ -1,6 +1,6 @@
 # AlgorithmsStudy 
 ## COMS
 ## https://www.hackerrank.com/dashboard
-## 8/4 1300~1500
-## 과제 sorting over 50 
+## 8/8 14:00~16:00
+## 과제 Implementation p.6 - p.7
 
