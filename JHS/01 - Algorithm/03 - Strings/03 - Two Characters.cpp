@@ -20,7 +20,7 @@ int maxLen(string s) {
 	int max = 0;
 
 	//나오는 문자의 종류를 저장
-	string sav;
+	string sav = "";
 	for (int i = 0; i<s.size(); i++) {
 		bool isExist = false;
 		for (int j = 0; j<sav.size(); j++) {
@@ -34,29 +34,31 @@ int maxLen(string s) {
 	}
 
 	//그 중에 두개를 고른다.
-	for (int i = 0; i<sav.size() - 1; i++) {
-		for (int j = i + 1; j<sav.size(); j++) {
-			string g = s;
-			//두개를 제외한 모든 문자를 삭제        
-			for (int k = 0; k<g.size(); k++) {
-				if (g[k] == sav[i] || g[k] == sav[j]) {
-					g.erase(g.begin() + k);
-					k--;
+	if (sav.size() > 1) {
+		for (int i = 0; i<sav.size() - 1; i++) {
+			for (int j = i + 1; j<sav.size(); j++) {
+				string g = s;
+				//두개를 제외한 모든 문자를 삭제        
+				for (int k = 0; k<g.size(); k++) {
+					if (g[k] != sav[i] && g[k] != sav[j]) {
+						g.erase(g.begin() + k);
+						k--;
+					}
 				}
-			}
 
-			bool flag = false;
-			for (int k = 0; k<g.size() - 1; k++) {
-				if (g[k] == g[k + 1]) {
-					flag = true;
+				bool flag = false;
+				for (int k = 0; k<g.size() - 1; k++) {
+					if (g[k] == g[k + 1]) {
+						flag = true;
+					}
 				}
-			}
-			if (flag == false) {
-				if (max < g.size()) {
-					max = g.size();
+				if (flag == false) {
+					if (max < g.size()) {
+						max = g.size();
+					}
 				}
-			}
 
+			}
 		}
 	}
 
