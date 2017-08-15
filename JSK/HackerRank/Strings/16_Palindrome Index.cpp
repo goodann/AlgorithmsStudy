@@ -6,7 +6,7 @@ int palindromeIndex(string s){
     // Complete this function
     for(int i = 0 ; i < s.size()/2;i++){
         if( s[i] != s[s.size()-i-1]){
-            if(s[i+1] ==  s[s.size()-i-1]){
+            if(s[i+1] ==  s[s.size()-i-1] &&s[i+2]==s[s.size()-2-i]){
                 return i;
             }
             else if( s[i] == s[s.size()-i-2]){
