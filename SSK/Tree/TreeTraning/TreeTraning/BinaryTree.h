@@ -2,6 +2,7 @@
 #include"Node.h"
 class BinaryTree
 {
+protected:
 	Node* root;
 	void PreOrder(Node* root);
 	void InOrder(Node* root);
@@ -17,6 +18,6 @@ public:
 	void PrintPostOrder();
 	void Clear();
 	virtual void InsertNode(Node* node) = 0;
-	virtual void DeleteNode(Node* node) = 0;
+	virtual void DeleteNode(int value) = 0;
 };
 

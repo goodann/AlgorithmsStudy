@@ -2,6 +2,7 @@
 #include "BinaryTree.h"
 
 
+
 BinaryTree::BinaryTree(Node* node)
 {
 	root = node;
@@ -23,8 +24,8 @@ void BinaryTree::Clear() {
 void BinaryTree::DeleteAll(Node* node) {
 	if (node == nullptr)
 		return;
-	PreOrder(node->left);
-	PreOrder(node->right);
+	DeleteAll(node->left);
+	DeleteAll(node->right);
 	delete node;
 }
 void BinaryTree::PrintPreOrder() {
@@ -46,14 +47,14 @@ void BinaryTree::PreOrder(Node* node) {
 void BinaryTree::InOrder(Node* node) {
 	if (node == nullptr)
 		return;
-	PreOrder(node->left);
+	InOrder(node->left);
 	printf("%d ", node->data);
-	PreOrder(node->right);
+	InOrder(node->right);
 }
 void BinaryTree::PostOrder(Node* node) {
 	if (node == nullptr)
 		return;
-	PreOrder(node->left);
-	PreOrder(node->right);
+	PostOrder(node->left);
+	PostOrder(node->right);
 	printf("%d ", node->data);
 }
