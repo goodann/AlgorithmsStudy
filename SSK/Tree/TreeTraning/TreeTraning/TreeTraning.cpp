@@ -9,8 +9,8 @@ int main()
 {
 	//random_device rng;
 	BinarySearchTree BST;
-	//RedBlackTree  RBT;
-	BinarySearchTree RBT;
+	RedBlackTree  RBT;
+	//BinarySearchTree RBT;
 
 	Node* node;
 	printf("Insert:1\n");
@@ -84,7 +84,7 @@ int main()
 	
 	printf("\n");
 	BST.PrintPostOrder();
-	
+	printf("\n");
 	RBT.PrintPostOrder();
 	
 	printf("\ndelete 7\n");
