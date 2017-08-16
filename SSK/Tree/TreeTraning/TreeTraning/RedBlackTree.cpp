@@ -13,21 +13,130 @@ RedBlackTree::~RedBlackTree()
 void RedBlackTree::InsertNode(Node* node) {
 	node->state = color::RED;
 	BinarySearchTree::InsertNode(node);
-	node->left = NIL;
-	node->right = NIL;
-	if (node == root) {
-		//case 1
-		
+	//node->left = NIL;
+	//node->right = NIL;
+	InsertCase1(node);
+}
+void RedBlackTree::DeleteNode(int value) {
+	Node* now = root;
+	bool isLeft = false;
+	bool isDelete = false;
+	while (!isDelete) {
+		if (now->data > value) {
+			if (now->left != nullptr) {
+				now = now->left;
+				isLeft = true;
+			}
+			else {
+				return;
+			}
+		}
+		else if (now->data < value) {
+			if (now->right != nullptr) {
+				now = now->right;
+				isLeft = false;
+			}
+			else {
+				return;
+			}
+
+		}
+		else {
+			//find
+			DeleteCase1(now);
+			isDelete = true;
+		}
+	}
+
+
+}
+Node* RedBlackTree::sibling(Node* n) {
+	if (n = n->parents->left)
+		return n->parents->right;
+	else
+		return n->parents->left;
+}
+void RedBlackTree::DeleteCase1(Node* node) {
+	if (node->parents != nullptr) {
+		DeleteCase2(node);
+	}
+}
+void RedBlackTree::DeleteCase2(Node* node) {
+	Node* sibl = sibling(node);
+	if (sibl->state == color::RED) {
+		node->parents->state = color::RED;
+		sibl->state = color::BLACK;
+		if (node == node->parents->left)
+			RotateLeft(node->parents);
+		else
+			RotateRight(node->parents);
+	}
+	DeleteCase3(node);
+}
+void RedBlackTree::DeleteCase3(Node* node) {
+	Node* sibl = sibling(node);
+	if ((node->parents->state == color::BLACK) &&
+		(sibl->state == color::BLACK) &&
+		(sibl->left->state == color::BLACK) &&
+		(sibl->right->state == BLACK)) {
+		sibl->state = color::RED;
+		DeleteCase1(node->parents);
 	}
 	else {
-		//case 2
+		DeleteCase4(node);
+	}
 		
+}
+void RedBlackTree::DeleteCase4(Node* node) {
+	Node* sibl = sibling(node);
+	if ((node->parents->state == color::RED) &&
+		(sibl->state == color::BLACK) &&
+		(sibl->left->state == color::BLACK) &&
+		(sibl->right->state == BLACK)) {
+		sibl->state = color::RED;
+		node->parents->state = color::BLACK;
+	}
+	else {
+		DeleteCase5(node);
 	}
 }
-void RedBlackTree::DeleteNode(Node* node) {
 
+void RedBlackTree::DeleteCase5(Node* node) {
+
+	Node* sibl = sibling(node);
+	if (sibl->state == color::BLACK) {
+
+		if ((node == node->parents->left) &&
+			(sibl->left->state == color::RED) &&
+			(sibl->right->state == color::BLACK)) {
+			sibl->state = color::RED;
+			sibl->left->state = color::BLACK;
+			RotateRight(sibl);
+		}
+		else if ((node == node->parents->right) &&
+			(sibl->left->state == color::BLACK) &&
+			(sibl->right->state == color::RED)) {
+			sibl->state = color::RED;
+			sibl->right->state = color::BLACK;
+			RotateLeft(sibl);
+		}
+	}
+	DeleteCase6(node);
 }
 
+void RedBlackTree::DeleteCase6(Node* node) {
+	Node* sibl = sibling(node);
+	sibl->state = node->parents->state;
+	node->parents->state = color::BLACK;
+	if (node == node->parents->left) {
+		sibl->right->state = color::BLACK;
+		RotateLeft(node->parents);
+	}
+	else {
+		sibl->left->state = color::BLACK;
+		RotateRight(node->parents);
+	}
+}
 Node* RedBlackTree::GrandParents(Node* node) {
 	if ((node != nullptr) && (node->parents != nullptr))
 		return node->parents->parents;
@@ -63,10 +172,11 @@ void RedBlackTree::InsertCase2(Node* node) {
 void RedBlackTree::InsertCase3(Node* node) {
 	//case 3
 	Node* uncleNode = Uncle(node);
-	Node* grandParent = GrandParents(node);
+	Node* grandParent;
 	if ((uncleNode != nullptr) && (uncleNode->state == color::RED)) {
 		node->parents->state = color::BLACK;
 		uncleNode->state = color::BLACK;
+		grandParent = GrandParents(node);
 		grandParent->state = color::RED;
 		InsertCase1(grandParent);
 	}
@@ -85,6 +195,7 @@ void RedBlackTree::InsertCase4(Node* node) {
 		RotateRight(node->parents);
 		node = node->right;
 	}
+	
 	InsertCase5(node);
 }
 void RedBlackTree::InsertCase5(Node* node) {
@@ -114,6 +225,9 @@ void RedBlackTree::RotateLeft(Node* node) {
 			parent->right = right;
 		}
 	}
+	else {
+		root = right;
+	}
 
 }
 void RedBlackTree::RotateRight(Node* node) {
@@ -123,7 +237,7 @@ void RedBlackTree::RotateRight(Node* node) {
 		left->right->parents = node;
 	node->left = left->right;
 	node->parents = left;
-	left->left = node;
+	left->right = node;
 	left->parents = parent;
 	if (parent != nullptr) {
 		if (parent->right == node) {
@@ -132,5 +246,8 @@ void RedBlackTree::RotateRight(Node* node) {
 		else {
 			parent->left = left;
 		}
+	}
+	else {
+		root = left;
 	}
 }
